@@ -1,0 +1,39 @@
+body {
+    font: 12px Helvetica, Arial, sans-serif;
+    color: #eee;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 1);
+    background-color: #000;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#container {
+    position: relative;
+}
+
+#message {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    padding: 10px;
+}
+
+.loading {
+    vertical-align: middle;
+    -webkit-animation: rotate 2s linear infinite;
+}
+
+@-webkit-keyframes rotate {
+    from { -webkit-transform: rotateZ(0deg); }
+    to   { -webkit-transform: rotateZ(360deg); }
+}
+
+#output {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
