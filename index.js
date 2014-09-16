@@ -5,22 +5,53 @@
 
     // This object and its contents will be made available to the global/window
     // scope. We'll use this to expose an API.
-    var exports = {};
+    window.api = {};
 
     // Configs
 
-	// (int) 0~255 明るさの平均からエッジを検出する際の最小値を示す, この明るさを超えるピクセルを検出する, 少ないほど詳細
-    exports.EDGE_DETECT_VALUE = 80; //50
+	   // (int) 0~255 明るさの平均からエッジを検出する際の最小値を示す, この明るさを超えるピクセルを検出する, 少ないほど詳細
+    api.EDGE_DETECT_VALUE = 80; //50
     // (number) エッジ上のポイントの分布比率, 高いほど詳細, 生成されたポイント数はコンソールを参照
-    exports.POINT_RATE = 0.075; //0.075
+    api.POINT_RATE = 0.075; //0.075
     // (int) ポイントの最大数, POINT_RATE によるポイント数はこの値を超えない, 大きいほど詳細
-    exports.POINT_MAX_NUM = 4500; //2500
+    api.POINT_MAX_NUM = 4500; //2500
     // (int) 細かいエッジを消すために行うほかしのサイズ, 少ないほど詳細
-    exports.BLUR_SIZE = 2; //2
+    api.BLUR_SIZE = 2; //2
     // (int) エッジ検出のサイズ, 大きいほど詳細
-    exports.EDGE_SIZE = 6; //3
+    api.EDGE_SIZE = 6; //3
     // (int) 許容ピクセル数, このピクセル数を超える画像が指定された場合リサイズする
-    exports.PIXEL_LIMIT = 8000000; //360000
+    api.PIXEL_LIMIT = 8000000; //360000
+
+    // Set the values for each input to the default
+    for (var key in window.api) {
+        var selector = 'input[name=' + key + ']',
+            el = document.querySelector(selector);
+
+        if (el) {
+            el.value = api[key];
+        }
+    }
+
+    // Handle the form submission by regenerating the image
+    var regenerateForm = document.querySelector('.settings-form');
+
+    regenerateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        var message = document.getElementById('message');
+        message.innerHTML = GENERATIONG_MESSAGE;
+
+        var inputs = regenerateForm.querySelectorAll('input[type=text]');
+
+        [].forEach.call(inputs, function (input) {
+            var name = input.name,
+                val = parseFloat(input.value, 10);
+
+            api[name] = val;
+        });
+
+        api.regenerate();
+    }, false);
 
     var GENERAL_MESSAGE = 'Drop image to change source.'; // 通常の表示メッセージ
     var GENERATIONG_MESSAGE = 'Generating...'; // 生成中の表示メッセージ
@@ -65,7 +96,7 @@
         var i, len = side * side;
         for (i = 0; i < len; i++) matrix[i] = 1;
         return matrix;
-    })(exports.BLUR_SIZE);
+    })(api.BLUR_SIZE);
 
     // エッジ検出用コンボリューション行列を作成
     var edge = (function(size) {
@@ -75,7 +106,7 @@
         var center = len * 0.5 | 0;
         for (i = 0; i < len; i++) matrix[i] = i === center ? -len + 1 : 1;
         return matrix;
-    })(exports.EDGE_SIZE);
+    })(api.EDGE_SIZE);
 
 
     /**
@@ -91,7 +122,7 @@
         message = document.getElementById('message');
         message.innerHTML = GENERATIONG_MESSAGE;
 
-        document.addEventListener('click', documentClick, false);
+        // document.addEventListener('click', documentClick, false);
 
         document.addEventListener('drop', documentDrop, false);
         var eventPreventDefault = function(e) { e.preventDefault(); };
@@ -147,9 +178,9 @@
         var width  = source.width;
         var height = source.height;
         var pixelNum = width * height;
-        if (pixelNum > exports.PIXEL_LIMIT) {
+        if (pixelNum > api.PIXEL_LIMIT) {
             // サイズオーバーの場合はリサイズ
-            var scale = Math.sqrt(exports.PIXEL_LIMIT / pixelNum);
+            var scale = Math.sqrt(api.PIXEL_LIMIT / pixelNum);
             source.width  = width * scale | 0;
             source.height = height * scale | 0;
 
@@ -163,6 +194,8 @@
         console.log('Generate start...');
         timeoutId = setTimeout(generate, 0);
     }
+
+    api.regenerate = sourceLoadComplete;
 
     /**
      * 画像のサイズと位置を調整する
@@ -234,8 +267,8 @@
         var points = [];
         var i = 0, ilen = temp.length;
         var tlen = ilen;
-        var j, limit = Math.round(ilen * exports.POINT_RATE);
-        if (limit > exports.POINT_MAX_NUM) limit = exports.POINT_MAX_NUM;
+        var j, limit = Math.round(ilen * api.POINT_RATE);
+        if (limit > api.POINT_MAX_NUM) limit = api.POINT_MAX_NUM;
 
         // ポイントを間引く
         while (i < limit && i < ilen) {
@@ -300,7 +333,7 @@
         var height = imageData.height;
         var data = imageData.data;
 
-        var E = exports.EDGE_DETECT_VALUE; // local copy
+        var E = api.EDGE_DETECT_VALUE; // local copy
 
         var points = [];
         var x, y, row, col, sx, sy, step, sum, total;
@@ -646,9 +679,6 @@
      */
     //var log=function(a){var b=0;var c=0;var d=function(){if(b){if(c>b)return;c++}a.console.log.apply(console,arguments)};d.limit=function(a){b=a};return d}(window)
 
-    // Expose the API to the global scope
-    window.delaunay = exports;
-    
     // Init
     window.addEventListener('load', init, false);
 

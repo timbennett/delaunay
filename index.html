@@ -17,6 +17,30 @@
     <img id="output" src="" alt="" />
 </div>
 
+<form class="settings-form" method="post" action=".">
+	<fieldset>
+		<label>Edge Detect:</label>
+		<input type="text" name="EDGE_DETECT_VALUE">
+
+		<label>Point Rate:</label>
+		<input type="text" name="POINT_RATE">
+
+		<label>Point Max Num:</label>
+		<input type="text" name="POINT_MAX_NUM">
+
+		<label>Blur Size:</label>
+		<input type="text" name="BLUR_SIZE">
+
+		<label>Edge Size:</label>
+		<input type="text" name="EDGE_SIZE">
+
+		<label>Pixel Limit:</label>
+		<input type="text" name="PIXEL_LIMIT">
+
+		<button type="submit" class="regenerate-btn">Regenerate</button>
+	</fieldset>
+</form>
+
 <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
