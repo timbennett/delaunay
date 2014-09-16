@@ -1,6 +1,24 @@
 Forked from http://jsdo.it/akm2/xoYx
 
-Licensed under the MIT License (MIT):
+![Example before and after image](https://github.com/timbennett/delaunay/blob/master/sample.jpg "Before and after Delaunay triangulation")
+
+##Configuration options (index.js): 
+
+    EDGE_DETECT_VALUE: Lower this to increase edge contrast sensitivity
+    POINT_RATE: "Number of points distribution ratio of points (number) on the edge, detail, generated higher see console" (Google Translate of "エッジ上のポイントの分布比率, 高いほど詳細, 生成されたポイント数はコンソールを参照")
+    POINT_MAX_NUM: Maximum points sampled. Higher = more detail.
+    BLUR_SIZE: Smaller is more detailed.
+    EDGE_SIZE: Larger is more detailed.
+    PIXEL_LIMIT: Images may have this many pixels at most (width x height) or will be resampled. Have had no trouble setting this to ~10,000,000 or more.
+
+##Attribution & License
+
+Images from Wikimedia Commons:
+
+* http://commons.wikimedia.org/wiki/File:Lilac-Breasted_Roller_with_Grasshopper_on_Acacia_tree_in_Botswana_(small)_c.jpg
+* http://commons.wikimedia.org/wiki/File:Red_Apple.jpg
+
+Code Licensed under the MIT License (MIT):
 
 Copyright (c) 2012 akm2
 
