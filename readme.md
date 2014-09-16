@@ -1,5 +1,8 @@
-Forked from http://jsdo.it/akm2/xoYx
+A browser-based Delaunay triangulation generator with drag-and-drop uploading. Delaunay triangulation produces a generally recognisable low-polygon version of the original image.
 
+###[A working example of this code.](http://internets.computer/delaunay/)
+
+Before and after:
 ![Example before and after image](https://github.com/timbennett/delaunay/blob/master/sample.jpg "Before and after Delaunay triangulation")
 
 ##Configuration options (index.js): 
@@ -10,8 +13,14 @@ Forked from http://jsdo.it/akm2/xoYx
     BLUR_SIZE: Smaller is more detailed.
     EDGE_SIZE: Larger is more detailed.
     PIXEL_LIMIT: Images may have this many pixels at most (width x height) or will be resampled. Have had no trouble setting this to ~10,000,000 or more.
+    
+##Wishlist:
+
+* Expose the configuration options in the front end, to enable more fluid experimentation.
 
 ##Attribution & License
+
+Forked from http://jsdo.it/akm2/xoYx
 
 Images from Wikimedia Commons:
 
