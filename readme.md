@@ -1,6 +1,6 @@
 A browser-based Delaunay triangulation generator with drag-and-drop uploading. Delaunay triangulation produces a generally recognisable low-polygon version of the original image.
 
-###[Click here to play with a working example of this code.](http://internets.computer/delaunay/)
+###[Click here to play with a working example of this code.](http://103.16.129.81/delaunay/)
 
 Before and after:
 ![Example before and after image](https://github.com/timbennett/delaunay/blob/master/sample.jpg "Before and after Delaunay triangulation")
